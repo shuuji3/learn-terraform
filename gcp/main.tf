@@ -8,11 +8,11 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("../tf-test-335615-796e6bac81f9.json")
+  credentials = file(var.credentials_file)
 
-  project = "tf-test-335615"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  project = var.project
+  region  = var.region
+  zone    = var.zone
 }
 
 resource "google_compute_network" "vpc_network" {
@@ -22,7 +22,7 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_instance" "vm_instance" {
   name         = "terraform-instance"
   machine_type = "e2-micro"
-  tags = ["web", "dev"]
+  tags         = ["web", "dev"]
 
   boot_disk {
     initialize_params {
